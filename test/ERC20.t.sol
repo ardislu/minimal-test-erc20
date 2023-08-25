@@ -12,6 +12,7 @@ interface Vm {
   function startPrank(address sender) external;
   function stopPrank() external;
   function assume(bool) external;
+  function expectRevert() external;
 }
 
 contract TestERC20 {
@@ -186,5 +187,26 @@ contract TestERC20 {
     require(transferSuccess);
     require(initialU1Balance == finalU1Balance);
     require(finalRandBalance == 0);
+  }
+
+  // Invalid transfer() and transferFrom() calls should revert
+  function testInvalidTransfer(uint256 rand, address target) public {
+    // Precondition:
+    vm.assume(target != u1 && target != u2 && target != u3);
+    uint256 initialU1Balance = token.balanceOf(u1);
+    uint256 value = rand % initialU1Balance + initialU1Balance + 1; // Random value above initialU1Balance
+
+    // Action:
+    vm.startPrank(u1);
+
+    // Transferring more than balance should revert
+    vm.expectRevert();
+    token.transfer(target, value);
+
+    token.approve(u1, value);
+    vm.expectRevert();
+    token.transferFrom(u1, target, value);
+
+    vm.stopPrank();
   }
 }
