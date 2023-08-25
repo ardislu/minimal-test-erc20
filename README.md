@@ -13,3 +13,17 @@ Fuzz using [`forge`](https://github.com/foundry-rs/foundry/tree/master/crates/fo
 ```
 forge test
 ```
+
+Run [SMTChecker](https://docs.soliditylang.org/en/v0.8.21/smtchecker.html) with `solc` (only works on Linux or WSL for now):
+
+1. Install [`z3`](https://github.com/Z3Prover/z3):
+
+```
+sudo apt install z3
+```
+
+2. Run SMTChecker:
+
+```
+solc ./test/SMTChecker.sol --model-checker-engine all
+```
