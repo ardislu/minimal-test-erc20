@@ -194,7 +194,8 @@ contract TestERC20 {
     // Precondition:
     vm.assume(target != u1 && target != u2 && target != u3);
     uint256 initialU1Balance = token.balanceOf(u1);
-    uint256 value = rand % initialU1Balance + initialU1Balance + 1; // Random value above initialU1Balance
+    vm.assume(rand > 0 && rand < type(uint256).max - initialU1Balance);
+    uint256 value = initialU1Balance + rand; // Random value above initialU1Balance, but not causing overflow
 
     // Action:
     vm.startPrank(u1);
