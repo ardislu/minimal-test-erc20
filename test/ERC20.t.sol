@@ -42,13 +42,13 @@ contract TestERC20 {
 
   // Validate that setUp() works
   function testSetUp() public view {
-    require(u1.balance == 100e18);
-    require(u2.balance == 100e18);
-    require(u3.balance == 100e18);
-    require(token.balanceOf(u1) == 100e18);
-    require(token.balanceOf(u2) == 100e18);
-    require(token.balanceOf(u3) == 100e18);
-    require(token.totalSupply() == 100e18 * 3);
+    assert(u1.balance == 100e18);
+    assert(u2.balance == 100e18);
+    assert(u3.balance == 100e18);
+    assert(token.balanceOf(u1) == 100e18);
+    assert(token.balanceOf(u2) == 100e18);
+    assert(token.balanceOf(u3) == 100e18);
+    assert(token.totalSupply() == 100e18 * 3);
   }
 
   // transfer() should update balances as expected
@@ -65,9 +65,9 @@ contract TestERC20 {
     // Postcondition:
     uint256 finalU1Balance = token.balanceOf(u1);
     uint256 finalRecipientBalance = token.balanceOf(recipient);
-    require(success);
-    require(finalU1Balance == initialU1Balance - value);
-    require(finalRecipientBalance == value);
+    assert(success);
+    assert(finalU1Balance == initialU1Balance - value);
+    assert(finalRecipientBalance == value);
   }
 
   // transferFrom() should update balances as expected
@@ -90,12 +90,12 @@ contract TestERC20 {
     uint256 finalSenderBalance = token.balanceOf(sender);
     uint256 finalSenderAllowance = token.allowance(u1, sender);
     uint256 finalRecipientBalance = token.balanceOf(recipient);
-    require(approveSuccess);
-    require(transferSuccess);
-    require(finalU1Balance == initialU1Balance - value);
-    require(finalSenderBalance == 0);
-    require(finalSenderAllowance == 0);
-    require(finalRecipientBalance == value);
+    assert(approveSuccess);
+    assert(transferSuccess);
+    assert(finalU1Balance == initialU1Balance - value);
+    assert(finalSenderBalance == 0);
+    assert(finalSenderAllowance == 0);
+    assert(finalRecipientBalance == value);
   }
 
   // approve() should update allowance as expected
@@ -111,8 +111,8 @@ contract TestERC20 {
 
     // Postcondition:
     uint256 finalAllowance = token.allowance(u1, target);
-    require(approveSuccess);
-    require(finalAllowance == initialAllowance + value);
+    assert(approveSuccess);
+    assert(finalAllowance == initialAllowance + value);
   }
 
   // Transferring to self using transfer() should have no effect
@@ -127,8 +127,8 @@ contract TestERC20 {
 
     // Postcondition:
     uint256 finalBalance = token.balanceOf(u1);
-    require(success);
-    require(initialBalance == finalBalance);
+    assert(success);
+    assert(initialBalance == finalBalance);
   }
 
   // Transferring to self using transferFrom() should have no effect
@@ -145,9 +145,9 @@ contract TestERC20 {
 
     // Postcondition:
     uint256 finalBalance = token.balanceOf(u1);
-    require(approveSuccess);
-    require(transferSuccess);
-    require(initialBalance == finalBalance);
+    assert(approveSuccess);
+    assert(transferSuccess);
+    assert(initialBalance == finalBalance);
   }
 
   // Transferring 0 tokens using transfer() should have no effect
@@ -163,9 +163,9 @@ contract TestERC20 {
     // Postcondition:
     uint256 finalU1Balance = token.balanceOf(u1);
     uint256 finalRandBalance = token.balanceOf(rand);
-    require(success);
-    require(initialU1Balance == finalU1Balance);
-    require(finalRandBalance == 0);
+    assert(success);
+    assert(initialU1Balance == finalU1Balance);
+    assert(finalRandBalance == 0);
   }
   
   // Transferring 0 tokens using transferFrom() should have no effect
@@ -183,10 +183,10 @@ contract TestERC20 {
     // Postcondition:
     uint256 finalU1Balance = token.balanceOf(u1);
     uint256 finalRandBalance = token.balanceOf(rand);
-    require(approveSuccess);
-    require(transferSuccess);
-    require(initialU1Balance == finalU1Balance);
-    require(finalRandBalance == 0);
+    assert(approveSuccess);
+    assert(transferSuccess);
+    assert(initialU1Balance == finalU1Balance);
+    assert(finalRandBalance == 0);
   }
 
   // Invalid transfer() and transferFrom() calls should revert
