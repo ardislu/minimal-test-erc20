@@ -27,28 +27,28 @@ contract TestERC20 {
     token = new ERC20();
 
     // Give 100 ETH to all test users
-    vm.deal(u1, 100e18);
-    vm.deal(u2, 100e18);
-    vm.deal(u3, 100e18);
+    vm.deal(u1, 100 ether);
+    vm.deal(u2, 100 ether);
+    vm.deal(u3, 100 ether);
 
     // Give 100 ERC20 to all test users
-    vm.store(address(token), keccak256(abi.encodePacked(uint256(uint160(u1)), uint256(1))), bytes32(uint256(100e18)));
-    vm.store(address(token), keccak256(abi.encodePacked(uint256(uint160(u2)), uint256(1))), bytes32(uint256(100e18)));
-    vm.store(address(token), keccak256(abi.encodePacked(uint256(uint160(u3)), uint256(1))), bytes32(uint256(100e18)));
+    vm.store(address(token), keccak256(abi.encodePacked(uint256(uint160(u1)), uint256(1))), bytes32(uint256(100 ether)));
+    vm.store(address(token), keccak256(abi.encodePacked(uint256(uint160(u2)), uint256(1))), bytes32(uint256(100 ether)));
+    vm.store(address(token), keccak256(abi.encodePacked(uint256(uint160(u3)), uint256(1))), bytes32(uint256(100 ether)));
 
     // Set totalSupply
-    vm.store(address(token), 0, bytes32(uint256(100e18 * 3)));
+    vm.store(address(token), 0, bytes32(uint256(100 ether * 3)));
   }
 
   // Validate that setUp() works
   function testSetUp() public view {
-    assert(u1.balance == 100e18);
-    assert(u2.balance == 100e18);
-    assert(u3.balance == 100e18);
-    assert(token.balanceOf(u1) == 100e18);
-    assert(token.balanceOf(u2) == 100e18);
-    assert(token.balanceOf(u3) == 100e18);
-    assert(token.totalSupply() == 100e18 * 3);
+    assert(u1.balance == 100 ether);
+    assert(u2.balance == 100 ether);
+    assert(u3.balance == 100 ether);
+    assert(token.balanceOf(u1) == 100 ether);
+    assert(token.balanceOf(u2) == 100 ether);
+    assert(token.balanceOf(u3) == 100 ether);
+    assert(token.totalSupply() == 100 ether * 3);
   }
 
   // transfer() should update balances as expected
