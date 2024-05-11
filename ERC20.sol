@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.25;
 
 /// Minimal ERC-20 token intended to be used in test scripts only.
 /// By design, it's not possible to mint tokens. You must use your EVM implementation
