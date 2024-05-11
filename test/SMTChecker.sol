@@ -20,12 +20,14 @@ contract SMTChecker is ERC20 {
     require(address(this) != rand);
     require(this.totalSupply() == amount);
     require(this.balanceOf(address(this)) == amount);
+    require(this.balanceOf(rand) == 0);
 
     // Action:
     this.transfer(rand, amount);
 
     // Postconditions:
     assert(this.totalSupply() == amount);
+    assert(this.balanceOf(address(this)) == 0);
     assert(this.balanceOf(rand) == amount);
   }
 }
